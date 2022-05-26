@@ -1,4 +1,4 @@
-![alt text](https://github.com/eastoncrafter/eastoncrafter.github.com/blob/main/pfp/FullyTransparent.png)
+![my pfp](/pfp/FullyTransparent.png)
 > Welcome to my corner of the internet,  
 > Have a look around,  
 > Anything that brain of yours can think of can be found,  
