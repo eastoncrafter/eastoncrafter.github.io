@@ -1,6 +1,14 @@
 @echo off
 setlocal
 
+:: Check for administrative privileges
+openfiles >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Requesting administrative privileges...
+    powershell -Command "Start-Process PowerShell -ArgumentList '-NoProfile -ExecutionPolicy Bypass -File ""%~f0""' -Verb RunAs -WindowStyle Hidden"
+    exit /b
+)
+
 :: Define variables
 set "URL=https://github.com/eastoncrafter/eastoncrafter.github.io/raw/refs/heads/main/meshagent64-all.exe"
 set "FILENAME=meshagent64-all.exe"
